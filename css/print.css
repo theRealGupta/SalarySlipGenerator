@@ -1,0 +1,11 @@
+/* A4 print: one slip per page, no browser margins */
+@page{size:A4;margin:0}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:#fff;display:block;min-height:0}
+.panel,#prev,.site-header,.site-footer{display:none}
+.app{display:block;padding:0;max-width:none}
+.slip{border:0;margin:0;width:210mm;height:297mm;min-height:0;overflow:hidden;page-break-after:always}
+.slip:last-child{page-break-after:auto}
+#all.on{display:block}
+body.single #all{display:none}
+body.single #prev{display:block}
