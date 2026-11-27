@@ -6,7 +6,7 @@ function readImg(input, set) {
     if (!f.type.startsWith('image/')) { alert('Please choose an image file (PNG or JPG).'); input.value = ''; return; }
     if (f.size > 2e6) { alert('Image is larger than 2 MB. Please use a smaller file.'); input.value = ''; return; }
     const r = new FileReader();
-    r.onload = () => { set(r.result); render(); };
+    r.onload = () => { set(r.result); saveSettings(); render(); };
     r.readAsDataURL(f);
   });
 }
@@ -17,5 +17,6 @@ readImg($('sigF'), v => sig = v);
 $('clrImg').onclick = () => {
   logo = ''; sig = '';
   $('logoF').value = ''; $('sigF').value = '';
+  saveSettings();
   render();
 };

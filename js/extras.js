@@ -18,15 +18,17 @@ function renderX() {
     if (ev.target.classList.contains('xl')) x.label = ev.target.value;
     else if (ev.target.classList.contains('xt')) x.t = ev.target.value;
     else x.v = +ev.target.value || 0;
+    saveSettings();
     render();
   });
   $(id).addEventListener('click', ev => {
     if (!ev.target.classList.contains('xdel')) return;
     list().splice(+ev.target.closest('.xr').dataset.i, 1);
+    saveSettings();
     renderX();
     render();
   });
 });
 
-$('addE').onclick = () => { extraE.push({ label: '', t: 'f', v: 0 }); renderX(); };
-$('addD').onclick = () => { extraD.push({ label: '', t: 'f', v: 0 }); renderX(); };
+$('addE').onclick = () => { extraE.push({ label: '', t: 'f', v: 0 }); saveSettings(); renderX(); };
+$('addD').onclick = () => { extraD.push({ label: '', t: 'f', v: 0 }); saveSettings(); renderX(); };

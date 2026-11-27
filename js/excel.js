@@ -19,7 +19,8 @@ $('file').addEventListener('change', async ev => {
         dept: o.department || '',
         pan: o.pan || '',
         month: String(mo).slice(0, 7),
-        ctc: Number(String(o.ctc || o.annualctc || 0).replace(/,/g, '')) || 0
+        ctc: Number(String(o.ctc || o.annualctc || 0).replace(/,/g, '')) || 0,
+        lop: Number(o.lop || o.lopdays || 0) || 0
       };
     }).filter(x => x.name || x.eid);
 
@@ -31,7 +32,7 @@ $('file').addEventListener('change', async ev => {
 });
 
 $('tpl').onclick = () => {
-  const ws = XLSX.utils.json_to_sheet([{ Name: 'Rahul Sharma', 'Employee ID': 'EMP001', Designation: 'Software Engineer', Department: 'Engineering', CTC: 1200000, Month: '2026-11', PAN: 'ABCDE1234F' }]);
+  const ws = XLSX.utils.json_to_sheet([{ Name: 'Rahul Sharma', 'Employee ID': 'EMP001', Designation: 'Software Engineer', Department: 'Engineering', CTC: 1200000, Month: '2026-11', PAN: 'ABCDE1234F', 'LOP Days': 0 }]);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Employees');
   XLSX.writeFile(wb, 'salary-template.xlsx');
@@ -41,13 +42,13 @@ $('exp').onclick = () => {
   const list = emps.length ? emps : [cur()];
   const sum = a => a.reduce((s, x) => s + x[1], 0);
   const ws = XLSX.utils.json_to_sheet(list.map(e => {
-    const r = calc(e.ctc);
+    const r = calc(e.ctc, e.month, e.lop);
     return {
-      Name: e.name, 'Employee ID': e.eid, Month: e.month, 'Annual CTC': e.ctc,
-      Basic: Math.round(r.basic), HRA: Math.round(r.hra), 'Special allowance': Math.round(r.special),
-      'Extra earnings': Math.round(sum(r.xe)), Gross: Math.round(r.gross),
-      PF: Math.round(r.pf), 'Professional tax': r.pt, TDS: Math.round(r.tds),
-      'Extra deductions': Math.round(sum(r.xd)), 'Net pay': Math.round(r.net)
+      Name: e.name, 'Employee ID': e.eid, Month: e.month, 'Paid days': r.paidDays, 'LOP days': r.lop, 'Annual CTC': e.ctc,
+      Basic: r.basic, HRA: r.hra, 'Special allowance': r.special,
+      'Extra earnings': sum(r.xe), Gross: r.gross,
+      PF: r.pf, 'Professional tax': r.pt, TDS: r.tds,
+      'Extra deductions': sum(r.xd), 'Net pay': r.net
     };
   }));
   const wb = XLSX.utils.book_new();

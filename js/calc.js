@@ -26,25 +26,39 @@ function annualTax(taxable) {
   return t * 1.04;
 }
 
-// Monthly breakup for an annual CTC
-function calc(ctc) {
-  const c = cfg(), m = ctc / 12;
-  const basic = m * c.pB / 100;
-  const hra = basic * c.pH / 100;
-  const pfBase = c.cap > 0 ? Math.min(basic, c.cap) : basic;
-  const pf = pfBase * c.pPf / 100;
-  const special = Math.max(0, m - basic - hra - pf);
+// Days in a YYYY-MM month (defaults to 30 if invalid)
+function monthDays(ym) {
+  const m = /^(\d{4})-(\d{2})$/.exec(String(ym || ''));
+  if (!m) return 30;
+  return new Date(+m[1], +m[2], 0).getDate();
+}
 
-  const amt = x => x.t === 'p' ? basic * x.v / 100 : x.v;
+// Monthly breakup for an annual CTC (rounded per component so displayed rows sum exactly)
+function calc(ctc, month, lopDays = 0) {
+  const c = cfg();
+  const totalDays = monthDays(month);
+  const lop = Math.min(totalDays, Math.max(0, Number(lopDays) || 0));
+  const paidDays = totalDays - lop;
+  const factor = totalDays > 0 ? paidDays / totalDays : 1;
+
+  const m = (ctc / 12) * factor;
+  const basic = Math.round(m * c.pB / 100);
+  const hra = Math.round(basic * c.pH / 100);
+  const pfBase = c.cap > 0 ? Math.min(basic, c.cap * factor) : basic;
+  const pf = Math.round(pfBase * c.pPf / 100);
+  const special = Math.max(0, Math.round(m) - basic - hra - pf);
+
+  const amt = x => Math.round(x.t === 'p' ? basic * x.v / 100 : x.v * factor);
   const xe = extraE.map(x => [E(x.label || 'Other earning'), amt(x)]);
   const xd = extraD.map(x => [E(x.label || 'Other deduction'), amt(x)]);
   const sum = a => a.reduce((s, x) => s + x[1], 0);
 
   const gross = basic + hra + special + sum(xe);
   let tds = 0;
-  if (c.tds === 'new') tds = annualTax(Math.max(0, gross * 12 - 75000)) / 12;
-  else if (c.tds === 'manual') tds = c.tdsM;
+  if (c.tds === 'new') tds = Math.round(annualTax(Math.max(0, gross * 12 - 75000)) / 12);
+  else if (c.tds === 'manual') tds = Math.round(c.tdsM);
 
-  const ded = pf + c.pt + tds + sum(xd);
-  return { m, basic, hra, special, gross, pf, pt: c.pt, tds, ded, net: gross - ded, xe, xd };
+  const pt = Math.round(c.pt);
+  const ded = pf + pt + tds + sum(xd);
+  return { m, totalDays, paidDays, lop, basic, hra, special, gross, pf, pt, tds, ded, net: gross - ded, xe, xd };
 }

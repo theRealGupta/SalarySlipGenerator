@@ -1,126 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Salary Slip Generator</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/print.css" media="print">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salary Slip Generator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
 </head>
+
 <body>
-<header class="site-header">
-  <div class="site-header-inner">
-    <div class="site-brand">
-      <span class="site-title">Salary Slip Generator</span>
-      <span class="badge">Open Source</span>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-brand">
+        <span class="site-title">Salary Slip Generator</span>
+        <span class="badge">Open Source</span>
+      </div>
+      <nav aria-label="Project links">
+        <a class="gh-link" href="https://github.com/theRealGupta/SalarySlipGenerator" target="_blank"
+          rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+          </svg>
+          View on GitHub
+        </a>
+      </nav>
     </div>
-    <nav aria-label="Project links">
-      <a class="gh-link" href="https://github.com/your-username/salary-slip-generator" target="_blank" rel="noopener noreferrer">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-        </svg>
-        View on GitHub
-      </a>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<main class="app">
+  <main class="app">
 
-  <!-- LEFT: inputs and formulas -->
-  <div class="panel" id="left">
-    <h1>Salary slip generator</h1>
+    <!-- LEFT: inputs and formulas -->
+    <div class="panel" id="left">
+      <h1>Salary slip generator</h1>
 
-    <h2>Company</h2>
-    <label for="company">Company name</label>
-    <input id="company" value="Your Company Pvt. Ltd.">
-    <div class="row">
-      <div><label for="logoF">Company logo</label><input id="logoF" type="file" accept="image/*"></div>
-      <div><label for="sigF">Authorised signature</label><input id="sigF" type="file" accept="image/*"></div>
+      <h2>Company</h2>
+      <label for="company">Company name</label>
+      <input id="company" value="Your Company Pvt. Ltd.">
+      <div class="row">
+        <div><label for="logoF">Company logo</label><input id="logoF" type="file" accept="image/*"></div>
+        <div><label for="sigF">Authorised signature</label><input id="sigF" type="file" accept="image/*"></div>
+      </div>
+      <div class="btns tight"><button class="ghost" id="clrImg">Remove images</button></div>
+
+      <h2>Employee</h2>
+      <div class="row">
+        <div><label for="name">Name</label><input id="name" value="Rahul Sharma"></div>
+        <div><label for="eid">Employee ID</label><input id="eid" value="EMP001"></div>
+      </div>
+      <div class="row">
+        <div><label for="desig">Designation</label><input id="desig" value="Software Engineer"></div>
+        <div><label for="dept">Department</label><input id="dept" value="Engineering"></div>
+      </div>
+      <div class="row">
+        <div><label for="pan">PAN</label><input id="pan"></div>
+        <div><label for="month">Pay month</label><input id="month" type="month"></div>
+      </div>
+      <div class="row">
+        <div><label for="ctc">Annual CTC (₹)</label><input id="ctc" type="number" value="1200000"></div>
+        <div><label for="lop">LOP days</label><input id="lop" type="number" min="0" max="31" value="0"></div>
+      </div>
+
+      <h2>Formulas (editable)</h2>
+      <div class="row">
+        <div><label for="pBasic">Basic = % of monthly CTC</label><input id="pBasic" type="number" value="40"></div>
+        <div><label for="pHra">HRA = % of Basic</label><input id="pHra" type="number" value="50"></div>
+      </div>
+      <div class="row">
+        <div><label for="pPf">PF % of Basic</label><input id="pPf" type="number" value="12"></div>
+        <div><label for="pfCap">PF wage cap (₹/mo, 0 = no cap)</label><input id="pfCap" type="number" value="15000">
+        </div>
+      </div>
+      <div class="row">
+        <div><label for="pt">Professional tax (₹/mo)</label><input id="pt" type="number" value="200"></div>
+        <div><label for="tds">Income tax (TDS)</label>
+          <select id="tds">
+            <option value="new">New regime (auto)</option>
+            <option value="manual">Manual amount</option>
+            <option value="none">None</option>
+          </select>
+        </div>
+      </div>
+      <label for="tdsM">Manual TDS (₹/mo)</label>
+      <input id="tdsM" type="number" value="0">
+      <div class="btns tight"><button class="ghost" id="resetCfg">Reset defaults</button></div>
+
+      <h2>Extra earnings</h2>
+      <div id="xe"></div>
+      <button class="ghost addb" id="addE">+ Add earning</button>
+      <h2>Extra deductions</h2>
+      <div id="xd"></div>
+      <button class="ghost addb" id="addD">+ Add deduction</button>
+      <p class="hint">Extra items apply to every slip. ₹ = fixed monthly amount, % Basic = percentage of Basic. Extra
+        earnings are added on top of Gross.</p>
+      <p class="hint">Special Allowance = Monthly CTC − Basic − HRA − Employer PF. Gross = Basic + HRA + Special +
+        extras. Net = Gross − PF − PT − TDS − extra deductions.</p>
+
+      <h2>Bulk upload (Excel)</h2>
+      <input id="file" type="file" accept=".xlsx,.xls,.csv">
+      <p class="hint">Columns: Name, Employee ID, Designation, Department, CTC, Month (YYYY-MM), PAN.</p>
+      <div class="btns"><button class="ghost" id="tpl">Download template</button><button class="ghost" id="exp">Export
+          summary</button></div>
+      <div class="list-tools" id="listTools" hidden>
+        <input id="empSearch" type="search" placeholder="Filter employees...">
+        <button class="ghost" id="clrList">Clear list</button>
+      </div>
+      <div id="list"></div>
+      <div class="btns"><button id="print">Print / Save PDF</button><button class="ghost" id="printAll">Print
+          all</button><button class="ghost" id="downloadAll">Download all PDFs</button></div>
     </div>
-    <div class="btns tight"><button class="ghost" id="clrImg">Remove images</button></div>
 
-    <h2>Employee</h2>
-    <div class="row">
-      <div><label for="name">Name</label><input id="name" value="Rahul Sharma"></div>
-      <div><label for="eid">Employee ID</label><input id="eid" value="EMP001"></div>
+    <!-- RIGHT: A4 slip preview -->
+    <div id="right">
+      <div class="scroll" id="prev"></div>
+      <div id="all"></div>
     </div>
-    <div class="row">
-      <div><label for="desig">Designation</label><input id="desig" value="Software Engineer"></div>
-      <div><label for="dept">Department</label><input id="dept" value="Engineering"></div>
-    </div>
-    <div class="row">
-      <div><label for="pan">PAN</label><input id="pan"></div>
-      <div><label for="month">Pay month</label><input id="month" type="month"></div>
-    </div>
-    <label for="ctc">Annual CTC (₹)</label>
-    <input id="ctc" type="number" value="1200000">
+  </main>
 
-    <h2>Formulas (editable)</h2>
-    <div class="row">
-      <div><label for="pBasic">Basic = % of monthly CTC</label><input id="pBasic" type="number" value="40"></div>
-      <div><label for="pHra">HRA = % of Basic</label><input id="pHra" type="number" value="50"></div>
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p class="footer-note">Built by Anup Gupta · Open-source project · Runs 100% in your browser, no data leaves your
+        device.</p>
+      <div class="footer-links">
+        <a href="https://github.com/your-username/salary-slip-generator" target="_blank"
+          rel="noopener noreferrer">GitHub</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/your-username/salary-slip-generator/issues" target="_blank"
+          rel="noopener noreferrer">Report an issue</a>
+      </div>
     </div>
-    <div class="row">
-      <div><label for="pPf">PF % of Basic</label><input id="pPf" type="number" value="12"></div>
-      <div><label for="pfCap">PF wage cap (₹/mo, 0 = no cap)</label><input id="pfCap" type="number" value="15000"></div>
-    </div>
-    <div class="row">
-      <div><label for="pt">Professional tax (₹/mo)</label><input id="pt" type="number" value="200"></div>
-      <div><label for="tds">Income tax (TDS)</label>
-        <select id="tds"><option value="new">New regime (auto)</option><option value="manual">Manual amount</option><option value="none">None</option></select></div>
-    </div>
-    <label for="tdsM">Manual TDS (₹/mo)</label>
-    <input id="tdsM" type="number" value="0">
+  </footer>
 
-    <h2>Extra earnings</h2>
-    <div id="xe"></div>
-    <button class="ghost addb" id="addE">+ Add earning</button>
-    <h2>Extra deductions</h2>
-    <div id="xd"></div>
-    <button class="ghost addb" id="addD">+ Add deduction</button>
-    <p class="hint">Extra items apply to every slip. ₹ = fixed monthly amount, % Basic = percentage of Basic. Extra earnings are added on top of Gross.</p>
-    <p class="hint">Special Allowance = Monthly CTC − Basic − HRA − Employer PF. Gross = Basic + HRA + Special + extras. Net = Gross − PF − PT − TDS − extra deductions.</p>
-
-    <h2>Bulk upload (Excel)</h2>
-    <input id="file" type="file" accept=".xlsx,.xls,.csv">
-    <p class="hint">Columns: Name, Employee ID, Designation, Department, CTC, Month (YYYY-MM), PAN.</p>
-    <div class="btns"><button class="ghost" id="tpl">Download template</button><button class="ghost" id="exp">Export summary</button></div>
-    <div id="list"></div>
-    <div class="btns"><button id="print">Print / Save PDF</button><button class="ghost" id="printAll">Print all</button><button class="ghost" id="downloadAll">Download all PDFs</button></div>
-  </div>
-
-  <!-- RIGHT: A4 slip preview -->
-  <div id="right">
-    <div class="scroll" id="prev"></div>
-    <div id="all"></div>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <div class="site-footer-inner">
-    <p class="footer-note">Built by Anup Gupta · Open-source project · Runs 100% in your browser, no data leaves your device.</p>
-    <div class="footer-links">
-      <a href="https://github.com/your-username/salary-slip-generator" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <span aria-hidden="true">·</span>
-      <a href="https://github.com/your-username/salary-slip-generator/issues" target="_blank" rel="noopener noreferrer">Report an issue</a>
-    </div>
-  </div>
-</footer>
-
-<!-- SheetJS, html2canvas, jsPDF, JSZip. For offline use, save them to js/vendor/ and update these paths. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/state.js"></script>
-<script src="js/calc.js"></script>
-<script src="js/slip.js"></script>
-<script src="js/extras.js"></script>
-<script src="js/images.js"></script>
-<script src="js/excel.js"></script>
-<script src="js/app.js"></script>
-<script src="js/pdf.js"></script>
+  <!-- SheetJS, html2canvas, jsPDF, JSZip. For offline use, save them to js/vendor/ and update these paths. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/calc.js"></script>
+  <script src="js/slip.js"></script>
+  <script src="js/extras.js"></script>
+  <script src="js/images.js"></script>
+  <script src="js/excel.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pdf.js"></script>
 </body>
+
 </html>

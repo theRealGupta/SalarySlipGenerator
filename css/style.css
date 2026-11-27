@@ -34,6 +34,7 @@ h2{font-size:13px;margin:16px 0 8px;color:var(--mute);font-weight:600}
 label{display:block;font-size:12px;color:var(--mute);margin:8px 0 3px}
 input,select{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
 input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+input:disabled{opacity:.55;cursor:not-allowed}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 button{padding:8px 12px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:var(--accink);font:inherit;font-weight:600;cursor:pointer}
 button:disabled{opacity:.6;cursor:wait}
@@ -48,6 +49,10 @@ button.ghost{background:transparent;color:var(--acc)}
 .addb{margin-top:4px}
 
 /* Employee list (bulk upload) */
+.list-tools{display:flex;gap:8px;margin-top:10px}
+.list-tools[hidden]{display:none}
+.list-tools input{flex:1}
+.list-tools button{white-space:nowrap;padding:6px 10px}
 #list{max-height:200px;overflow:auto}
 .emp{display:flex;justify-content:space-between;padding:6px 8px;border:1px solid var(--line);border-radius:6px;margin-top:4px;cursor:pointer;font-size:13px}
 .emp.on{background:var(--soft);border-color:var(--acc)}
@@ -64,6 +69,7 @@ button.ghost{background:transparent;color:var(--acc)}
 .slip td.n,.slip th.n{text-align:right;font-variant-numeric:tabular-nums}
 .slip th{background:#e8f1ec}
 .slip .net{margin-top:12px;padding:10px;background:#e8f1ec;font-weight:700;display:flex;justify-content:space-between}
+.slip .net-words{padding:4px 10px 0;font-size:12px;color:#444}
 .slip .note{color:#555;font-size:12px;margin:10px 0 0}
 .slip .sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:50px;color:#555}
 .slip .sign .auth{text-align:center}

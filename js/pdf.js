@@ -33,7 +33,7 @@ async function renderSlipPdfBlob(e, stage) {
   const slipEl = stage.firstElementChild;
 
   const imgs = Array.from(slipEl.querySelectorAll('img'));
-  await Promise.all(imgs.map(img => (img.decode ? img.decode().catch(() => {}) : Promise.resolve())));
+  await Promise.all(imgs.map(img => (img.decode ? img.decode().catch(() => { }) : Promise.resolve())));
 
   const canvas = await window.html2canvas(slipEl, {
     scale: 2,
@@ -46,8 +46,11 @@ async function renderSlipPdfBlob(e, stage) {
   const imgData = canvas.toDataURL('image/jpeg', 0.95);
   const pageW = 210;
   const pageH = 297;
-  const imgH = (canvas.height * pageW) / canvas.width;
-  pdf.addImage(imgData, 'JPEG', 0, 0, pageW, Math.min(pageH, imgH));
+  // Scale proportionally so tall slips with many extra items never distort
+  const scale = Math.min(pageW / canvas.width, pageH / canvas.height);
+  const w = canvas.width * scale;
+  const h = canvas.height * scale;
+  pdf.addImage(imgData, 'JPEG', (pageW - w) / 2, 0, w, h);
   return pdf.output('blob');
 }
 

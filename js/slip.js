@@ -1,6 +1,6 @@
 /* Builds the HTML of one A4 salary slip */
 function slipHTML(e) {
-  const r = calc(e.ctc);
+  const r = calc(e.ctc, e.month, e.lop);
   const d = new Date(e.month + '-01');
   const mo = isNaN(d) ? '' : d.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
 
@@ -21,6 +21,7 @@ function slipHTML(e) {
     <div>Name: <b>${E(e.name)}</b></div><div>Employee ID: <b>${E(e.eid)}</b></div>
     <div>Designation: ${E(e.desig)}</div><div>Department: ${E(e.dept)}</div>
     <div>PAN: ${E(e.pan)}</div><div>Annual CTC: ${inr(e.ctc)}</div>
+    <div>Paid days: ${r.paidDays} / ${r.totalDays}</div><div>LOP days: ${r.lop}</div>
   </div>
   <table>
     <tr><th>Earnings</th><th class="n">Amount</th><th>Deductions</th><th class="n">Amount</th></tr>
@@ -28,6 +29,7 @@ function slipHTML(e) {
     <tr><th>Gross earnings</th><th class="n">${inr(r.gross)}</th><th>Total deductions</th><th class="n">${inr(r.ded)}</th></tr>
   </table>
   <div class="net"><span>Net pay</span><span>${inr(r.net)}</span></div>
+  <div class="net-words">In words: ${inrWords(r.net)}</div>
   <p class="note">Employer PF contribution (part of CTC): ${inr(r.pf)}. This is a computer-generated slip.</p>
   <div class="sign"><span>Employee signature</span>
     <span class="auth">${sig ? `<img src="${sig}" alt="Signature">` : ''}Authorised signatory</span></div>
